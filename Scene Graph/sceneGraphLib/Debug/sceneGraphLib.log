@@ -1,0 +1,82 @@
+﻿Build started 3/6/2012 5:58:05 PM.
+     1>Project "C:\Users\Rimic\documents\visual studio 2010\Projects\Scene Graph\sceneGraphLib\sceneGraphLib.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Debug\sceneGraphLib.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       CustomBuild:
+         Moc'ing scenegraphlib.h...
+         Uic'ing scenegraphlib.ui...
+         Moc'ing myglwidget.h...
+         Moc'ing Node.h...
+         Moc'ing mytreewidget.h...
+         Moc'ing mycontrolbox.h...
+         Moc'ing myslider.h...
+         Moc'ing keyFrame.h...
+         Moc'ing myframewidget.h...
+         Rcc'ing scenegraphlib.qrc...
+     1>RCC : warning : No resources in 'C:\Users\Rimic\documents\visual studio 2010\Projects\Scene Graph\sceneGraphLib\scenegraphlib.qrc'.
+         
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I.\GeneratedFiles /IC:\Qt\4.8.0\include /I.\GeneratedFiles\Debug /IC:\Qt\4.8.0\include\QtCore /IC:\Qt\4.8.0\include\QtGui /IC:\Qt\4.8.0\include\QtOpenGL /I.\ /Zi /nologo /W1 /WX- /Od /Oy- /D UNICODE /D WIN32 /D QT_LARGEFILE_SUPPORT /D QT_CORE_LIB /D QT_GUI_LIB /D QT_OPENGL_LIB /Gm- /EHsc /MDd /GS /fp:precise /Zc:wchar_t- /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt GeneratedFiles\Debug\moc_keyFrame.cpp GeneratedFiles\Debug\moc_mycontrolbox.cpp GeneratedFiles\Debug\moc_myframewidget.cpp GeneratedFiles\Debug\moc_myglwidget.cpp GeneratedFiles\Debug\moc_myslider.cpp GeneratedFiles\Debug\moc_mytreewidget.cpp GeneratedFiles\Debug\moc_Node.cpp GeneratedFiles\Debug\moc_scenegraphlib.cpp gMatrix3.cpp gPolygon.cpp Graph.cpp gVector3.cpp keyFrame.cpp main.cpp mycontrolbox.cpp myframewidget.cpp myglwidget.cpp myslider.cpp mytreewidget.cpp Node.cpp scenegraphlib.cpp
+         moc_keyFrame.cpp
+         moc_mycontrolbox.cpp
+         moc_myframewidget.cpp
+         moc_myglwidget.cpp
+         moc_myslider.cpp
+         moc_mytreewidget.cpp
+         moc_Node.cpp
+         moc_scenegraphlib.cpp
+         gMatrix3.cpp
+         gPolygon.cpp
+         Graph.cpp
+         gVector3.cpp
+         keyFrame.cpp
+         main.cpp
+         mycontrolbox.cpp
+         myframewidget.cpp
+         myglwidget.cpp
+         myslider.cpp
+         mytreewidget.cpp
+         Node.cpp
+         Generating Code...
+         Compiling...
+         scenegraphlib.cpp
+         Generating Code...
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I.\GeneratedFiles /IC:\Qt\4.8.0\include /I.\GeneratedFiles\Debug /IC:\Qt\4.8.0\include\QtCore /IC:\Qt\4.8.0\include\QtGui /IC:\Qt\4.8.0\include\QtOpenGL /I.\ /Zi /nologo /W1 /WX- /Od /Oy- /D UNICODE /D WIN32 /D QT_LARGEFILE_SUPPORT /D QT_CORE_LIB /D QT_GUI_LIB /D QT_OPENGL_LIB /Gm- /EHsc /MDd /GS /fp:precise /Zc:wchar_t- /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt GeneratedFiles\qrc_scenegraphlib.cpp
+         qrc_scenegraphlib.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I.\GeneratedFiles /IC:\Qt\4.8.0\include /I.\GeneratedFiles\Debug /IC:\Qt\4.8.0\include\QtCore /IC:\Qt\4.8.0\include\QtGui /IC:\Qt\4.8.0\include\QtOpenGL /I.\ /Zi /nologo /W1 /WX- /Od /Oy- /D UNICODE /D WIN32 /D QT_LARGEFILE_SUPPORT /D QT_CORE_LIB /D QT_GUI_LIB /D QT_OPENGL_LIB /Gm- /EHsc /MDd /GS /fp:precise /Zc:wchar_t- /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt glew.c
+         glew.c
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Rimic\documents\visual studio 2010\Projects\Scene Graph\\sceneGraphLib.exe" /NOLOGO /LIBPATH:C:\Qt\4.8.0\lib qtmaind.lib QtCored4.lib QtGuid4.lib QtOpenGLd4.lib opengl32.lib glu32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\sceneGraphLib.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Rimic\documents\visual studio 2010\Projects\Scene Graph\sceneGraphLib.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Rimic\documents\visual studio 2010\Projects\Scene Graph\sceneGraphLib.lib" /MACHINE:X86 Debug\moc_keyFrame.obj
+         Debug\moc_mycontrolbox.obj
+         Debug\moc_myframewidget.obj
+         Debug\moc_myglwidget.obj
+         Debug\moc_myslider.obj
+         Debug\moc_mytreewidget.obj
+         Debug\moc_Node.obj
+         Debug\moc_scenegraphlib.obj
+         Debug\qrc_scenegraphlib.obj
+         Debug\glew.obj
+         Debug\gMatrix3.obj
+         Debug\gPolygon.obj
+         Debug\Graph.obj
+         Debug\gVector3.obj
+         Debug\keyFrame.obj
+         Debug\main.obj
+         Debug\mycontrolbox.obj
+         Debug\myframewidget.obj
+         Debug\myglwidget.obj
+         Debug\myslider.obj
+         Debug\mytreewidget.obj
+         Debug\Node.obj
+         Debug\scenegraphlib.obj
+         sceneGraphLib.vcxproj -> C:\Users\Rimic\documents\visual studio 2010\Projects\Scene Graph\sceneGraphLib.exe
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"C:\Users\Rimic\documents\visual studio 2010\Projects\Scene Graph\\sceneGraphLib.exe;#1" /manifest Debug\sceneGraphLib.exe.intermediate.manifest
+       FinalizeBuildStatus:
+         Deleting file "Debug\sceneGraphLib.unsuccessfulbuild".
+         Touching "Debug\sceneGraphLib.lastbuildstate".
+     1>Done Building Project "C:\Users\Rimic\documents\visual studio 2010\Projects\Scene Graph\sceneGraphLib\sceneGraphLib.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:01:14.91

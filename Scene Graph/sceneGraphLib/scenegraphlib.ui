@@ -1,0 +1,2070 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>sceneGraphLibClass</class>
+ <widget class="QMainWindow" name="sceneGraphLibClass">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>982</width>
+    <height>802</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>sceneGraphLib</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QPushButton" name="Button_Reset">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>280</y>
+      <width>81</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Reset Graph</string>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="remove">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>720</y>
+      <width>51</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Delete</string>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="add">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>720</y>
+      <width>51</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="X_scale">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>410</y>
+      <width>16</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>  X</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="translateLabel">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>380</y>
+      <width>61</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Translate</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="rotateLabel">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>490</y>
+      <width>41</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string> Rotate</string>
+    </property>
+   </widget>
+   <widget class="MyGLWidget" name="widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>10</y>
+      <width>721</width>
+      <height>491</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: rgb(25, 25, 25);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Y_scale">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>440</y>
+      <width>16</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>  Y</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="scaleLabel">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>380</y>
+      <width>31</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Scale</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="X_trans">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>410</y>
+      <width>16</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>  X</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Y_stans">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>440</y>
+      <width>16</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>  Y</string>
+    </property>
+   </widget>
+   <widget class="MyControlBox" name="controlBox_ScaleY">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>440</y>
+      <width>51</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="minimum">
+     <double>-30.000000000000000</double>
+    </property>
+    <property name="maximum">
+     <double>30.000000000000000</double>
+    </property>
+    <property name="singleStep">
+     <double>0.100000000000000</double>
+    </property>
+    <property name="value">
+     <double>1.000000000000000</double>
+    </property>
+   </widget>
+   <widget class="MyControlBox" name="controlBox_ScaleX">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>410</y>
+      <width>51</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="minimum">
+     <double>-30.000000000000000</double>
+    </property>
+    <property name="maximum">
+     <double>30.000000000000000</double>
+    </property>
+    <property name="singleStep">
+     <double>0.100000000000000</double>
+    </property>
+    <property name="value">
+     <double>1.000000000000000</double>
+    </property>
+   </widget>
+   <widget class="MyControlBox" name="controlBox_TranslateY">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>440</y>
+      <width>51</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="minimum">
+     <double>-800.000000000000000</double>
+    </property>
+    <property name="maximum">
+     <double>800.000000000000000</double>
+    </property>
+    <property name="singleStep">
+     <double>5.000000000000000</double>
+    </property>
+    <property name="value">
+     <double>0.000000000000000</double>
+    </property>
+   </widget>
+   <widget class="MyControlBox" name="controlBox_TranslateX">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>410</y>
+      <width>51</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="minimum">
+     <double>-800.000000000000000</double>
+    </property>
+    <property name="maximum">
+     <double>800.000000000000000</double>
+    </property>
+    <property name="singleStep">
+     <double>5.000000000000000</double>
+    </property>
+    <property name="value">
+     <double>0.000000000000000</double>
+    </property>
+   </widget>
+   <widget class="Line" name="line">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>380</y>
+      <width>20</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="MySlider" name="rotateSlider">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>530</y>
+      <width>20</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="maximum">
+     <number>360</number>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="MyTreeWidget" name="treeWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>221</width>
+      <height>261</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">gridline-color: rgb(85, 255, 255);
+border-color: rgb(84, 84, 84);</string>
+    </property>
+    <column>
+     <property name="text">
+      <string notr="true">Scene Graph</string>
+     </property>
+    </column>
+   </widget>
+   <widget class="Line" name="line_3">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>490</y>
+      <width>20</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="colorLabel">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>490</y>
+      <width>41</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>  Color</string>
+    </property>
+   </widget>
+   <widget class="MySlider" name="redSlider">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>510</y>
+      <width>61</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QSlider::handle:horizontal {
+     background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #FF0000, stop:1 #8f8f8f);
+
+     border: 1px solid #5c5c5c;
+     width: 18px;
+     margin: -2px 0; /* handle is placed by default on the contents rect of the groove. Expand outside the groove */
+     border-radius: 4px;
+}</string>
+    </property>
+    <property name="maximum">
+     <number>100</number>
+    </property>
+    <property name="singleStep">
+     <number>1</number>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="Line" name="line_4">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>470</y>
+      <width>221</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="MySlider" name="greenSlider">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>540</y>
+      <width>61</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QSlider::handle:horizontal {
+     background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #00BB00, stop:1 #8f8f8f);
+
+     border: 1px solid #5c5c5c;
+     width: 18px;
+     margin: -2px 0; /* handle is placed by default on the contents rect of the groove. Expand outside the groove */
+     border-radius: 4px;
+}</string>
+    </property>
+    <property name="maximum">
+     <number>100</number>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="MySlider" name="blueSlider">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>570</y>
+      <width>61</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QSlider::handle:horizontal {
+     background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #000099, stop:1 #8f8f8f);
+     border: 1px solid #5c5c5c;
+     width: 18px;
+     margin: -2px 0; /* handle is placed by default on the contents rect of the groove. Expand outside the groove */
+     border-radius: 4px;
+}</string>
+    </property>
+    <property name="maximum">
+     <number>100</number>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="r">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>510</y>
+      <width>16</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>  R</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="G">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>540</y>
+      <width>16</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>  G</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="B">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>570</y>
+      <width>16</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>  B</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>640</y>
+      <width>91</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="rotateLabel_2">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>670</y>
+      <width>31</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Sides</string>
+    </property>
+   </widget>
+   <widget class="Line" name="line_5">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>590</y>
+      <width>221</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="MySlider" name="geometrySlider">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>640</y>
+      <width>51</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="maximum">
+     <number>1</number>
+    </property>
+    <property name="pageStep">
+     <number>1</number>
+    </property>
+    <property name="sliderPosition">
+     <number>0</number>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="rotateLabel_3">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>610</y>
+      <width>61</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>  Node Name</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="rotateLabel_4">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>640</y>
+      <width>16</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>No</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="rotateLabel_5">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>640</y>
+      <width>16</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Yes</string>
+    </property>
+   </widget>
+   <widget class="Line" name="line_6">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>610</y>
+      <width>20</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="rotateLabel_6">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>610</y>
+      <width>51</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string> Geometry</string>
+    </property>
+   </widget>
+   <widget class="Line" name="line_7">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>700</y>
+      <width>221</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="rotateLabel_7">
+    <property name="geometry">
+     <rect>
+      <x>45</x>
+      <y>330</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Creator</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="rotateLabel_8">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>335</y>
+      <width>31</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Editor</string>
+    </property>
+   </widget>
+   <widget class="MySlider" name="nodeModeSlider">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>340</y>
+      <width>61</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="maximum">
+     <number>1</number>
+    </property>
+    <property name="pageStep">
+     <number>1</number>
+    </property>
+    <property name="sliderPosition">
+     <number>1</number>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="rotateLabel_9">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>320</y>
+      <width>61</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Node Mode</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="rotate360">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>510</y>
+      <width>21</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>360</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="rotate0">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>580</y>
+      <width>16</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>  0</string>
+    </property>
+   </widget>
+   <widget class="MyControlBox" name="controlBox_sideCount">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>670</y>
+      <width>51</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="decimals">
+     <number>1</number>
+    </property>
+    <property name="minimum">
+     <double>-100.000000000000000</double>
+    </property>
+    <property name="maximum">
+     <double>100.000000000000000</double>
+    </property>
+    <property name="singleStep">
+     <double>1.000000000000000</double>
+    </property>
+    <property name="value">
+     <double>0.000000000000000</double>
+    </property>
+   </widget>
+   <widget class="Line" name="line_8">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>270</y>
+      <width>20</width>
+      <height>471</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>790</x>
+      <y>660</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add Frame</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>690</x>
+      <y>660</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Remove Frame</string>
+    </property>
+   </widget>
+   <widget class="MyFrameWidget" name="tableWidget">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>530</y>
+      <width>721</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="scaleLabel_2">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>499</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Key Frame Animation Editor</string>
+    </property>
+   </widget>
+   <widget class="Line" name="line_9">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>360</y>
+      <width>221</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="Line" name="line_10">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>650</y>
+      <width>431</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox">
+    <property name="geometry">
+     <rect>
+      <x>890</x>
+      <y>660</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Interpolate       </string>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="Line" name="line_12">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>300</y>
+      <width>221</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="Line" name="line_11">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>680</y>
+      <width>721</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>982</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionReset_Graph"/>
+    <addaction name="actionQuit"/>
+   </widget>
+   <widget class="QMenu" name="menuAbout">
+    <property name="title">
+     <string>About</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="actionHello_Puppet_v1_0"/>
+    <addaction name="separator"/>
+    <addaction name="actionCreated_By_Michael_Rivera"/>
+    <addaction name="actionCIS277_HW3"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuAbout"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionQuit">
+   <property name="text">
+    <string>Quit</string>
+   </property>
+  </action>
+  <action name="actionReset_Graph">
+   <property name="text">
+    <string>Reset Graph</string>
+   </property>
+  </action>
+  <action name="actionCreated_By_Michael_Rivera">
+   <property name="text">
+    <string>Created By Michael Rivera</string>
+   </property>
+  </action>
+  <action name="actionCIS277_HW3">
+   <property name="text">
+    <string>CIS277 - HW3</string>
+   </property>
+  </action>
+  <action name="actionHello_Puppet_v1_0">
+   <property name="text">
+    <string>Hello Puppet v1.0</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>MyGLWidget</class>
+   <extends>QWidget</extends>
+   <header>myglwidget.h</header>
+   <container>1</container>
+   <slots>
+    <signal>buildTree(Graph*,bool)</signal>
+    <signal>resetValues(double)</signal>
+    <signal>cNode()</signal>
+    <signal>sendGraph(Graph*)</signal>
+    <signal>sendImage(QImage,int)</signal>
+    <signal>setSelectedColumn(int)</signal>
+    <signal>sendUpdatedImage(QImage,int)</signal>
+    <signal>clearFrames()</signal>
+    <signal>clearSelection()</signal>
+    <signal>resetValues(int)</signal>
+    <slot>spin(int)</slot>
+    <slot>scaleX(double)</slot>
+    <slot>scaleY(double)</slot>
+    <slot>translateX(double)</slot>
+    <slot>translateY(double)</slot>
+    <slot>resetGraph()</slot>
+    <slot>colorRed(int)</slot>
+    <slot>colorGreen(int)</slot>
+    <slot>colorBlue(int)</slot>
+    <slot>updateName(QString)</slot>
+    <slot>updateMode(int)</slot>
+    <slot>saveGeometry(int)</slot>
+    <slot>saveNewName(QString)</slot>
+    <slot>createNode()</slot>
+    <slot>saveScaleX(double)</slot>
+    <slot>saveScaleY(double)</slot>
+    <slot>saveTransX(double)</slot>
+    <slot>saveTransY(double)</slot>
+    <slot>saveRotation(int)</slot>
+    <slot>saveGreen(int)</slot>
+    <slot>saveBlue(int)</slot>
+    <slot>saveSides(int)</slot>
+    <slot>saveRed(int)</slot>
+    <slot>deleteTreeNode()</slot>
+    <slot>addFrame()</slot>
+    <slot>updateSelectedFrame(int)</slot>
+    <slot>deleteFrame()</slot>
+    <slot>updateAddMode(int)</slot>
+    <slot>cloneFirst()</slot>
+    <slot>cloneLast()</slot>
+    <slot>updateInterpolateMode(bool)</slot>
+   </slots>
+  </customwidget>
+  <customwidget>
+   <class>MyTreeWidget</class>
+   <extends>QTreeWidget</extends>
+   <header>mytreewidget.h</header>
+   <slots>
+    <signal>sendGraphFromTree(Graph*)</signal>
+    <slot>getTreeForBuilding(Graph*,bool)</slot>
+   </slots>
+  </customwidget>
+  <customwidget>
+   <class>MyControlBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>mycontrolbox.h</header>
+   <slots>
+    <signal>sendGraphFromControlBox(Graph*)</signal>
+    <signal>sendClickedNode(Node*,int)</signal>
+    <signal>sendName(QString)</signal>
+    <signal>passData(float,float,float,float,int,int)</signal>
+    <signal>saveNewNode()</signal>
+    <signal>saveNewNode(Graph*)</signal>
+    <slot>grabNodeFromClick(QTreeWidgetItem*,int)</slot>
+    <slot>receiveGraphFromTree(Graph*)</slot>
+    <slot>receiveGraphFromControlBox(Graph*)</slot>
+    <slot>receiveClickedNode(Node*,int)</slot>
+    <slot>saveSides()</slot>
+    <slot>saveScaleY()</slot>
+    <slot>saveScaleX()</slot>
+    <slot>saveTransX()</slot>
+    <slot>saveTransY()</slot>
+   </slots>
+  </customwidget>
+  <customwidget>
+   <class>MySlider</class>
+   <extends>QSlider</extends>
+   <header>myslider.h</header>
+   <slots>
+    <signal>passDataSlider(float,float,float,float,int,int)</signal>
+    <signal>saveGeo(int)</signal>
+    <signal>sendSaveGraph(Graph*)</signal>
+    <signal>cNode()</signal>
+    <slot>receiveData(float,float,float,float,int,int)</slot>
+    <slot>saveGeometry()</slot>
+    <slot>saveRed(Graph*)</slot>
+    <slot>saveGreen(Graph*)</slot>
+    <slot>saveBlue(Graph*)</slot>
+    <slot>saveRotation(Graph*)</slot>
+   </slots>
+  </customwidget>
+  <customwidget>
+   <class>MyFrameWidget</class>
+   <extends>QTableWidget</extends>
+   <header>myframewidget.h</header>
+   <slots>
+    <signal>changeFrame(int)</signal>
+    <signal>insert(int)</signal>
+    <signal>eraseFrame()</signal>
+    <slot>receiveGraph(Graph*)</slot>
+    <slot>getImage(QImage,int)</slot>
+    <slot>removeFrame()</slot>
+    <slot>setClicked(int,int)</slot>
+    <slot>updateImage(QImage,int)</slot>
+    <slot>resetFrames()</slot>
+   </slots>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="scenegraphlib.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>actionQuit</sender>
+   <signal>triggered()</signal>
+   <receiver>sceneGraphLibClass</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>27</x>
+     <y>80</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controlBox_TranslateX</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>widget</receiver>
+   <slot>translateX(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>210</x>
+     <y>456</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>498</x>
+     <y>383</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controlBox_ScaleX</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>widget</receiver>
+   <slot>scaleX(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>89</x>
+     <y>464</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>323</x>
+     <y>400</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controlBox_ScaleY</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>widget</receiver>
+   <slot>scaleY(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>73</x>
+     <y>489</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>285</x>
+     <y>416</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controlBox_TranslateY</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>widget</receiver>
+   <slot>translateY(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>210</x>
+     <y>473</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>377</x>
+     <y>433</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rotateSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>widget</receiver>
+   <slot>spin(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>69</x>
+     <y>581</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>260</x>
+     <y>533</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Button_Reset</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>resetGraph()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>160</x>
+     <y>313</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>840</x>
+     <y>101</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionReset_Graph</sender>
+   <signal>triggered()</signal>
+   <receiver>widget</receiver>
+   <slot>resetGraph()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>359</x>
+     <y>140</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>buildTree(Graph*,bool)</signal>
+   <receiver>treeWidget</receiver>
+   <slot>getTreeForBuilding(Graph*,bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>340</x>
+     <y>222</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>83</x>
+     <y>203</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>treeWidget</sender>
+   <signal>sendGraphFromTree(Graph*)</signal>
+   <receiver>controlBox_ScaleX</receiver>
+   <slot>receiveGraphFromTree(Graph*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>40</x>
+     <y>303</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>50</x>
+     <y>456</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controlBox_ScaleX</sender>
+   <signal>sendGraphFromControlBox(Graph*)</signal>
+   <receiver>controlBox_ScaleY</receiver>
+   <slot>receiveGraphFromControlBox(Graph*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>88</x>
+     <y>464</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>83</x>
+     <y>494</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controlBox_ScaleY</sender>
+   <signal>sendGraphFromControlBox(Graph*)</signal>
+   <receiver>controlBox_TranslateX</receiver>
+   <slot>receiveGraphFromControlBox(Graph*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>87</x>
+     <y>494</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>189</x>
+     <y>464</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controlBox_TranslateX</sender>
+   <signal>sendGraphFromControlBox(Graph*)</signal>
+   <receiver>controlBox_TranslateY</receiver>
+   <slot>receiveGraphFromControlBox(Graph*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>195</x>
+     <y>464</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>198</x>
+     <y>494</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controlBox_TranslateY</sender>
+   <signal>sendGraphFromControlBox(Graph*)</signal>
+   <receiver>controlBox_sideCount</receiver>
+   <slot>receiveGraphFromControlBox(Graph*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>180</x>
+     <y>494</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>200</x>
+     <y>724</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>treeWidget</sender>
+   <signal>itemClicked(QTreeWidgetItem*,int)</signal>
+   <receiver>controlBox_ScaleX</receiver>
+   <slot>grabNodeFromClick(QTreeWidgetItem*,int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>54</x>
+     <y>285</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>67</x>
+     <y>464</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controlBox_ScaleX</sender>
+   <signal>sendClickedNode(Node*,int)</signal>
+   <receiver>controlBox_ScaleY</receiver>
+   <slot>receiveClickedNode(Node*,int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>50</x>
+     <y>456</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>50</x>
+     <y>474</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controlBox_ScaleY</sender>
+   <signal>sendClickedNode(Node*,int)</signal>
+   <receiver>controlBox_TranslateX</receiver>
+   <slot>receiveClickedNode(Node*,int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>74</x>
+     <y>494</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>184</x>
+     <y>464</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controlBox_TranslateX</sender>
+   <signal>sendClickedNode(Node*,int)</signal>
+   <receiver>controlBox_TranslateY</receiver>
+   <slot>receiveClickedNode(Node*,int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>188</x>
+     <y>464</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>186</x>
+     <y>494</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controlBox_TranslateY</sender>
+   <signal>sendClickedNode(Node*,int)</signal>
+   <receiver>controlBox_sideCount</receiver>
+   <slot>receiveClickedNode(Node*,int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>175</x>
+     <y>494</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>192</x>
+     <y>724</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controlBox_sideCount</sender>
+   <signal>sendName(QString)</signal>
+   <receiver>lineEdit</receiver>
+   <slot>setText(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>213</x>
+     <y>724</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>66</x>
+     <y>692</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controlBox_sideCount</sender>
+   <signal>passData(float,float,float,float,int,int)</signal>
+   <receiver>redSlider</receiver>
+   <slot>receiveData(float,float,float,float,int,int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>214</x>
+     <y>717</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>179</x>
+     <y>561</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>redSlider</sender>
+   <signal>passDataSlider(float,float,float,float,int,int)</signal>
+   <receiver>greenSlider</receiver>
+   <slot>receiveData(float,float,float,float,int,int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>208</x>
+     <y>561</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>206</x>
+     <y>591</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>greenSlider</sender>
+   <signal>passDataSlider(float,float,float,float,int,int)</signal>
+   <receiver>blueSlider</receiver>
+   <slot>receiveData(float,float,float,float,int,int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>210</x>
+     <y>591</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>210</x>
+     <y>621</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>blueSlider</sender>
+   <signal>passDataSlider(float,float,float,float,int,int)</signal>
+   <receiver>rotateSlider</receiver>
+   <slot>receiveData(float,float,float,float,int,int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>171</x>
+     <y>621</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>69</x>
+     <y>580</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rotateSlider</sender>
+   <signal>passDataSlider(float,float,float,float,int,int)</signal>
+   <receiver>geometrySlider</receiver>
+   <slot>receiveData(float,float,float,float,int,int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>67</x>
+     <y>583</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>171</x>
+     <y>692</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>redSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>widget</receiver>
+   <slot>colorRed(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>179</x>
+     <y>560</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>401</x>
+     <y>487</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>greenSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>widget</receiver>
+   <slot>colorGreen(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>177</x>
+     <y>591</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>324</x>
+     <y>522</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>blueSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>widget</receiver>
+   <slot>colorBlue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>188</x>
+     <y>621</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>353</x>
+     <y>533</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>resetValues(double)</signal>
+   <receiver>controlBox_TranslateX</receiver>
+   <slot>setValue(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>808</x>
+     <y>92</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>190</x>
+     <y>464</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>resetValues(double)</signal>
+   <receiver>controlBox_TranslateY</receiver>
+   <slot>setValue(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>336</x>
+     <y>162</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>185</x>
+     <y>494</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>resetValues(double)</signal>
+   <receiver>controlBox_ScaleX</receiver>
+   <slot>setValue(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>389</x>
+     <y>280</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>69</x>
+     <y>464</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>resetValues(double)</signal>
+   <receiver>controlBox_ScaleY</receiver>
+   <slot>setValue(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>439</x>
+     <y>310</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>71</x>
+     <y>494</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>resetValues(double)</signal>
+   <receiver>controlBox_sideCount</receiver>
+   <slot>setValue(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>403</x>
+     <y>533</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>195</x>
+     <y>722</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdit</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>widget</receiver>
+   <slot>updateName(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>46</x>
+     <y>692</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>297</x>
+     <y>533</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>nodeModeSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>widget</receiver>
+   <slot>updateMode(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>137</x>
+     <y>373</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>762</x>
+     <y>170</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdit</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>widget</receiver>
+   <slot>saveNewName(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>100</x>
+     <y>690</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>351</x>
+     <y>533</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controlBox_sideCount</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>widget</receiver>
+   <slot>saveSides(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>193</x>
+     <y>719</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>328</x>
+     <y>533</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>geometrySlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>widget</receiver>
+   <slot>saveGeometry(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>197</x>
+     <y>692</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>359</x>
+     <y>533</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rotateSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>widget</receiver>
+   <slot>saveRotation(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>66</x>
+     <y>581</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>405</x>
+     <y>520</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>redSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>widget</receiver>
+   <slot>saveRed(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>194</x>
+     <y>561</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>334</x>
+     <y>490</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>greenSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>widget</receiver>
+   <slot>saveGreen(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>182</x>
+     <y>591</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>365</x>
+     <y>524</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>blueSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>widget</receiver>
+   <slot>saveBlue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>194</x>
+     <y>621</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>362</x>
+     <y>533</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controlBox_TranslateY</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>widget</receiver>
+   <slot>saveTransY(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>201</x>
+     <y>494</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>336</x>
+     <y>424</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controlBox_TranslateX</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>widget</receiver>
+   <slot>saveTransX(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>199</x>
+     <y>462</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>301</x>
+     <y>390</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controlBox_ScaleY</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>widget</receiver>
+   <slot>saveScaleY(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>84</x>
+     <y>494</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>324</x>
+     <y>425</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controlBox_ScaleX</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>widget</receiver>
+   <slot>saveScaleX(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>69</x>
+     <y>464</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>341</x>
+     <y>405</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>add</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>createNode()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>187</x>
+     <y>773</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>394</x>
+     <y>533</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>remove</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>deleteTreeNode()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>59</x>
+     <y>773</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>383</x>
+     <y>533</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>addFrame()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>874</x>
+     <y>693</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>970</x>
+     <y>533</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>tableWidget</receiver>
+   <slot>removeFrame()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>780</x>
+     <y>697</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>699</x>
+     <y>665</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>sendImage(QImage,int)</signal>
+   <receiver>tableWidget</receiver>
+   <slot>getImage(QImage,int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>724</x>
+     <y>533</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>724</x>
+     <y>615</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tableWidget</sender>
+   <signal>cellClicked(int,int)</signal>
+   <receiver>tableWidget</receiver>
+   <slot>setClicked(int,int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>540</x>
+     <y>621</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>518</x>
+     <y>637</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tableWidget</sender>
+   <signal>changeFrame(int)</signal>
+   <receiver>widget</receiver>
+   <slot>updateSelectedFrame(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>463</x>
+     <y>613</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>444</x>
+     <y>494</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>setSelectedColumn(int)</signal>
+   <receiver>tableWidget</receiver>
+   <slot>selectColumn(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>860</x>
+     <y>491</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>857</x>
+     <y>683</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tableWidget</sender>
+   <signal>eraseFrame()</signal>
+   <receiver>widget</receiver>
+   <slot>deleteFrame()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>681</x>
+     <y>620</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>681</x>
+     <y>478</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>sendUpdatedImage(QImage,int)</signal>
+   <receiver>tableWidget</receiver>
+   <slot>updateImage(QImage,int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>620</x>
+     <y>512</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>620</x>
+     <y>643</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Button_Reset</sender>
+   <signal>clicked()</signal>
+   <receiver>tableWidget</receiver>
+   <slot>resetFrames()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>143</x>
+     <y>313</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>833</x>
+     <y>683</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>clearSelection()</signal>
+   <receiver>treeWidget</receiver>
+   <slot>clearSelection()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>261</x>
+     <y>162</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>150</x>
+     <y>162</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>resetValues(int)</signal>
+   <receiver>redSlider</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>340</x>
+     <y>484</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>159</x>
+     <y>556</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>resetValues(int)</signal>
+   <receiver>greenSlider</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>273</x>
+     <y>461</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>177</x>
+     <y>589</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>resetValues(int)</signal>
+   <receiver>blueSlider</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>352</x>
+     <y>483</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>165</x>
+     <y>612</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>resetValues(int)</signal>
+   <receiver>rotateSlider</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>286</x>
+     <y>439</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>66</x>
+     <y>581</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>clearSelection()</signal>
+   <receiver>lineEdit</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>497</x>
+     <y>466</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>38</x>
+     <y>690</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>resetValues(int)</signal>
+   <receiver>geometrySlider</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>421</x>
+     <y>418</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>188</x>
+     <y>684</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>widget</receiver>
+   <slot>updateInterpolateMode(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>951</x>
+     <y>706</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>882</x>
+     <y>505</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

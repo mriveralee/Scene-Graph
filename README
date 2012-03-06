@@ -1,0 +1,17 @@
+Michael Rivera
+Simple 2D Scene Graph & Key Frame Animation Editor
+March 6, 2012
+-------------------------------------
+Written in C++ in Visual Studio 2010
+GUI designed in Qt Designer 4.8
+-------------------------------------
+Description: 
+	Allows for the creation and manipulate of complex 2D Shapes.
+	Features scale, translation, rotation, color.
+	
+	NOTE: Animation portion is still in development
+
+--------------------------------------------------------------------
+
+
+
