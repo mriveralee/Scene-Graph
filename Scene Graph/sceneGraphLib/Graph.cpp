@@ -9,18 +9,19 @@
 ///////////////////////
 Graph::Graph(){
 	root = NULL;
-	clickedFrame = 0;
+	isAnimated = false;
 }
 
 Graph::Graph(Node* _root){
 	root = _root;
-	clickedFrame = 0;
+	isAnimated = false;
+
 }
 
 Graph::Graph(MyGLWidget* w){
 	root = NULL;
 	widget = w;
-	clickedFrame = 0;
+	isAnimated = false;
 }
 
 
@@ -86,7 +87,6 @@ Node* Graph::getRootNode(){
 ////////////////////////////////
 void Graph::constructTest(){
 	//Test Shapes for Graph
-	clickedFrame =0;
 	gPolygon* pentagonR = new gPolygon(10, gVector3(0,1,0), 10);
 	gPolygon* pentagonL = new gPolygon(10, gVector3(1,1,0), 10);
 	gPolygon* squareR = new gPolygon(4, gVector3(0,0,1), 10);
@@ -114,7 +114,6 @@ void Graph::constructTest(){
 /////////////////////////////////////
 void Graph::constructCharacter(){
 	glewInit();
-	clickedFrame = 0;
 	// Begin Making Widget & Character
 	Node* body = new Node("Character");
 		//body->Translate(-100,-80);
@@ -219,7 +218,6 @@ void Graph::traverseFrame(int selectedFrame, Node* node, gMatrix3 trans){
 	//node->setFrame(clickedFrame);
 	node->framePlace = selectedFrame;
 	node->loadFrame(selectedFrame);
-	
 	trans = trans*(node->getFrameTransformation(selectedFrame));
 	//cout<<"TRAVERSE FRAME  - TRANS \n" << trans << endl;
 	for (int i =0; i<node->getChildrenNodes().size(); i++){
@@ -255,7 +253,7 @@ void Graph::addFrame(int addPlace, bool insertion, Node* node, gMatrix3 trans){
 /////////////////////////////////
 void Graph::removeFrame(int place, Node* node, gMatrix3 trans){
 	if(place>=0){
-		cout<<"GRAPH REMOVED FRAME: " << place<<endl;
+		//cout<<"GRAPH REMOVED FRAME: " << place<<endl;
 		node->removeFrame(place);
 		for (int i =0; i<node->getChildrenNodes().size(); i++){
 			Node* child = node->getChildNode(i);
@@ -264,9 +262,152 @@ void Graph::removeFrame(int place, Node* node, gMatrix3 trans){
 	}
 }
 
+
+
 /////////////////////////////////
-/***** Set Clicked Frame  ******/
+/***** Batch Add Frames  *******/
 /////////////////////////////////
-void Graph::setClickedFrame(int place){
-	clickedFrame = place;
+void Graph::batchAdd(int addPlace, bool insertion, Node* node, gMatrix3 trans, int numAdd){
+	node->framePlace = addPlace;
+	if (insertion){ 
+		node->BatchInsertFrame(addPlace, numAdd);
+		//cout<<"INSERTION" << endl;
+	}
+	else {node->BatchCreateFrame(addPlace, numAdd);
+		//cout<<"standard add" << endl;
+	}
+	for (int i =0; i<node->getChildrenNodes().size(); i++){
+		Node* child = node->getChildNode(i);
+		batchAdd(addPlace, insertion, child, trans, numAdd);
+	}
+}
+
+
+//////////////////////////////////
+/***** Animate the Graph  *******/
+//////////////////////////////////
+void Graph::animateGraph(int numFramesTotal, int numKeyFrames){
+	int numAddedFrames = numFramesTotal - numKeyFrames;
+	int numPerKey;
+	if(numKeyFrames > 1)
+		numPerKey = numAddedFrames/(numKeyFrames-1);
+	
+	//cout << " num Added Frames: " << numAddedFrames <<endl;
+	//cout << "numPerKey" << numPerKey << endl;
+	if (numKeyFrames == 1){
+		//cout<<"NUM FRAMES =1, ANIMATED at 0"<<endl;		
+		batchAnimatedAdd(1, false, getRootNode(), gMatrix3::identity(), numAddedFrames);
+	}
+	else if (numKeyFrames == 2){
+		//cout<<"NUM FRAMES = 2, ANIMATED at " << endl;
+		batchAnimatedAdd(1, true, getRootNode(), gMatrix3::identity(), numAddedFrames);		// Insertion Frame	
+	}
+	else {
+		int numRemainingFrames = numAddedFrames;
+		//cout << "SIZE BEFORE ANIMATED ADD" <<this->getRootNode()->translateAnimated.size()<<endl;
+		int place = 0;
+		
+		for (int i =0; i< numKeyFrames && numRemainingFrames - numPerKey >= 0; i++){
+				Node* root = getRootNode();
+				int size = root->transformationAnimated.size();			
+				int v = size-(numKeyFrames-i-1);
+				batchAnimatedAdd(v, true, getRootNode(), gMatrix3::identity(), numPerKey);		// Insertion Frame		
+				numRemainingFrames -=numPerKey;
+			//cout <<"at key frame -> i: " << i << "at place: " <<size-(numKeyFrames-i) <<endl;
+		}
+		if (numRemainingFrames > 0){
+	//		cout<<"numRemainingFrames >0 switch: " << numRemainingFrames << "adding now at: " << numFramesTotal-numRemainingFrames-1-2 <<endl;
+		//	cout << "num current frames before remaining" <<this->getRootNode()->translateAnimated.size()<<endl;
+			batchAnimatedAdd(root->transformationAnimated.size()-2, true, getRootNode(), gMatrix3::identity(), numRemainingFrames);
+			
+		}
+
+	}
+	//constructTest();
+	isAnimated = true;
+}
+
+//////////////////////////////////////////
+/***** Batch Animated Add Frames  *******/
+//////////////////////////////////////////
+void Graph::batchAnimatedAdd(int addPlace, bool insertion, Node* node, gMatrix3 trans, int numAdd){
+	node->animatedPlace = addPlace;
+	if (insertion){ 
+		node->BatchInsertAnimated(addPlace, numAdd);
+		//cout<<"INSERTION" << endl;
+	}
+	else {
+		//node->BatchCreateAnimated(addPlace, numAdd);
+		node->createAnimatedFirst(numAdd);
+		//cout<<"standard add" << endl;
+	}
+	for (int i =0; i<node->getChildrenNodes().size(); i++){
+		Node* child = node->getChildNode(i);
+		batchAnimatedAdd(addPlace, insertion, child, trans, numAdd);
+	}
+}
+
+//////////////////////////////////////////
+/****** Traverse Animated Frames  *******/
+//////////////////////////////////////////
+void Graph::traverseAnimated(int selectedFrame, Node* node, gMatrix3 trans){
+	node->animatedPlace = selectedFrame;	// animated frame place
+	node->loadAnimatedFrame(selectedFrame);		// load animated frame
+	trans = trans*(node->getAnimatedTransformation(selectedFrame));
+	//cout<<"TRAVERSE FRAME  - TRANS \n" << trans << endl;
+	for (int i =0; i<node->getChildrenNodes().size(); i++){
+		Node* child = node->getChildNode(i);
+		if (child->hasGeometry()){
+			child->setModel(trans*(child->getAnimatedTransformation(selectedFrame)));
+			widget->drawNode(child);
+		}
+		traverseAnimated(selectedFrame, child, trans);
+	}
+}
+
+
+
+////////////////////////////////
+/**** Copy KeyFrames from *****/
+////////////////////////////////
+void Graph::copyKeyFrames(Node* node){
+	//cout<<"Copy KeyFrame with Node" << node << endl;
+	node->copyKeyFrames();
+	for (int i =0; i<node->getChildrenNodes().size(); i++){
+		Node* child = node->getChildNode(i);
+		copyKeyFrames(child);
+	}
+}
+
+
+////////////////////////////////
+/****** Play Animated    ******/
+////////////////////////////////
+void Graph::playAnimated(int maxNumFrames){
+	for (int i = 0; i < maxNumFrames; i++){
+		traverseAnimated(i,getRootNode(), gMatrix3::identity());
+	//	cout << "Played animate: i" << i << endl;
+	}
+}
+
+
+////////////////////////////////
+/****** Erase Animation    ******/
+////////////////////////////////
+void Graph::eraseAnimation(Node* node){
+	isAnimated = false;
+	node->eraseAnimation();
+	for (int i =0; i<node->getChildrenNodes().size(); i++){
+		Node* child = node->getChildNode(i);
+		eraseAnimation(child);
+	}
+}
+
+void Graph::makeKeyFrame(int place, Node* node){
+//cout<<"Copy KeyFrame with Node" << node << endl;
+	node->makeKeyFrame(place);
+	for (int i =0; i<node->getChildrenNodes().size(); i++){
+		Node* child = node->getChildNode(i);
+		makeKeyFrame(place, child);
+	}
 }

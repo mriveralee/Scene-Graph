@@ -105,7 +105,7 @@ float* gPolygon::getColors(){
 
 unsigned int gPolygon::getSides(){
 	return sideCount;
-	cout<<"SIDE COUNT CALLED: " << sideCount << endl;
+	//cout<<"SIDE COUNT CALLED: " << sideCount << endl;
 }
 
 void gPolygon::setColors(float r, float g, float b){

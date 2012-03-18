@@ -31,12 +31,12 @@ private:
 	gMatrix3 model;								// model Matrix for paintGL	
 	string name;								// Tree widget name
 	bool hasPolygon;							// True if this Node has a shape
-
+	
 public:
 	Node(void);
 	Node(string);
 	Node(gPolygon*, string);
-	~Node();
+	~Node(void);
 	void addChildNode(Node*);					// Add a Child to the list of children
 	void addParentNode(Node*);					// Add a parent to this node
 	void removeParentNode(Node*);				// Remove a parent
@@ -62,7 +62,7 @@ public:
 	gMatrix3 getTranslation(void);				// gets the currently 'loaded' rotation matrix (used for setting values in control boxes)
 	gMatrix3 getModel(void);					// Get model matrix for paintGL
 	void setName(string);						// Sets the name of this Widget
-	QString getName();							// Returns the name of this node
+	QString getName(void);							// Returns the name of this node
 	float rotateValue;							
 	void join(Node*);							// Joins two nodes, parent(caller) and child input
 	void joinMultiple(vector<Node*>);			// Joins a bunch of children to a parent
@@ -80,4 +80,33 @@ public:
 	void initializeFrames(int);					// for creation of a new node  with matrices
 	void removeFrame(int);						// remove frame at location, framePlace, in vectors
 	void clone(int);
+	
+	void BatchInsertFrame(int, int);
+	void BatchCreateFrame(int, int);
+
+
+	std::vector<gMatrix3> scaleAnimated;			// Xcale frame matrices holder
+	std::vector<gMatrix3> translateAnimated;		// Translate frame matrices holder
+	std::vector<float> rotateAnimated;					// Rotate frame matrices matrices holder
+	std::vector<gMatrix3> transformationAnimated;
+	std::vector<bool> keyFrameAnimated;
+	bool isKeyFrame;
+	void makeKeyFrame(int);
+	
+	// IMPLEMENT THIS 
+	int animatedPlace;
+	gMatrix3 animatedModel;
+	void loadAnimatedFrame(int);
+	void setAnimatedModel(gMatrix3);
+	void BatchCreateAnimated(int,int);
+	void BatchInsertAnimated(int,int);
+	void createAnimatedFrame(int);
+	void updateAnimatedFrame(int);
+	gMatrix3 getAnimatedTransformation(int);
+	void traverseAnimated(int);
+	void copyKeyFrames();
+	void eraseAnimation();
+	void createAnimatedFirst(int);
+
+	
 };

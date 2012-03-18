@@ -17,24 +17,32 @@
 |*************** CONSTRUCTOR  ***************|
 |********************************************/
 MyGLWidget::MyGLWidget(QWidget* parent) : QGLWidget(parent) {
-	//This starter code uses a timer to make a square rotate without
-	//user intervention.  You can remove this.
-	timer = new QTimer(this);
-	//timer ->
 	graph = new Graph(this);
-	graph->constructCharacter();
+	graph->constructCharacter();	
+	// Editing
 	clickedNode = graph->getRootNode();
 	updateDisplay =1;
-	nodeMode =1;					// 1 is For Editor ; 0 is For Creator
-	selectedFrame = 0;				// Currently Selected Frame
+	nodeMode =1;								// 1 is For Editor ; 0 is For Creator
+	selectedFrame = 0;							// Currently Selected Frame
 	numFrames =1;
 	interpolateMode = 1; // 1 -> copy, 0-> interpolation
-	//connect(timer, SIGNAL(timeout()), this, SLOT(updateGL()));
-	//timer->start(17);
+	playMode = 1;
 	//We can set our vertex attributes rather than requesting their locations
 	//I chose to do so in this constructor, maybe you would in your init() function?
+	// Buffer
 	positionLocation = 0;
 	colorLocation = 1;
+	// Animator
+	numMultiAddFrames = 1;						// Number of multiple frames to be added
+	animateViewMode = 0;
+	//animator = new Animator(graph);
+	// Timer
+	timer = new QTimer(this);
+	playbackSpeed = 40;
+	isLooped = false;
+	connect(timer, SIGNAL(timeout()), this, SLOT(updateGL()));
+	timer->stop();
+	
 }
 
 /**********************************************|
@@ -135,11 +143,26 @@ void MyGLWidget::paintGL() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);						// Clear The screen
 	glewInit();
 	if(graph->getRootNode() != NULL){
-		//selectedFrame = this->selectedFrame;
-		if(selectedFrame < 0 ) graph->traverseFrame(0,graph->getRootNode(), gMatrix3::identity());
-		else graph->traverseFrame(selectedFrame,graph->getRootNode(), gMatrix3::identity());
-		updateFrameImage();
-		//cerr<<"MADE IT PAST TRAVERSE FRAME"<< endl;
+		if (graph->isAnimated && animateViewMode && !isPaused && playMode){
+			if (currentAnimatedFrame > numAnimatedFrames && !isLooped) {stopAnimation(); }//currentAnimatedFrame = 0;}
+			else if (currentAnimatedFrame > numAnimatedFrames && isLooped){currentAnimatedFrame = 0;}
+			emit setAnimationSliderValue(currentAnimatedFrame);
+			emit updateKeyFrameString(currentAnimatedFrame);
+			graph->traverseAnimated(currentAnimatedFrame,graph->getRootNode(), gMatrix3::identity());
+			currentAnimatedFrame++;
+				
+				//}
+		}
+
+		else if (graph->isAnimated && animateViewMode){
+			graph->traverseAnimated(currentAnimatedFrame,graph->getRootNode(), gMatrix3::identity());
+		}
+		else {	
+			if(selectedFrame < 0 ) graph->traverseFrame(0,graph->getRootNode(), gMatrix3::identity());
+			else graph->traverseFrame(selectedFrame,graph->getRootNode(), gMatrix3::identity());
+			updateFrameImage();
+			//cerr<<"MADE IT PAST TRAVERSE FRAME"<< endl;
+		}
 	}
 }
 
@@ -347,18 +370,27 @@ void MyGLWidget::scaleY(double _y){
 // RESET GRAPH
 /********************/
 void MyGLWidget::resetGraph(){
-	graph->constructCharacter();
-	clickedNode = NULL;
-	selectedFrame = 0;
-	numFrames = 1;
-	//cout<< "WITHIN RESET" << (graph->getRootNode()->getName()).toStdString()<<endl;
-	updateDisplay = 1;
-	//addMode = 2;
-	emit buildTree(graph, true);
-	emit resetValues(0);
-	emit resetValues(0.0);
-	emit updateFrameImage();
-	updateGL();
+	if(!isPaused){
+		graph->constructCharacter();
+		clickedNode = NULL;
+		selectedFrame = 0;
+		numFrames = 1;
+		numMultiAddFrames = 0;
+		//cout<< "WITHIN RESET" << (graph->getRootNode()->getName()).toStdString()<<endl;
+		updateDisplay = 1;
+		//addMode = 2;
+		stopAnimation();
+		graph->isAnimated = false;
+		timer->stop();
+		graph->eraseAnimation(graph->getRootNode());
+		currentAnimatedFrame = 0;
+		emit buildTree(graph, true);
+		emit resetValues(0);
+		emit resetValues(0.0);
+		emit updateFrameImage();
+		emit sendKeyFrameString(QString::fromStdString("None Selected"));
+		updateGL();
+	}
 
 }
 /********************/
@@ -495,7 +527,7 @@ void MyGLWidget::saveRotation(int val){
 void MyGLWidget::deleteTreeNode(){
 	if(nodeMode==0 && clickedNode != NULL && clickedNode != graph->getRootNode()){
 		Node* parent =  (dynamic_cast<Node*>(clickedNode->QTreeWidgetItem::parent()));
-		cout<< parent << "VALUE of STRING" << parent->getName().toStdString()<<endl;
+		//cout<< parent << "VALUE of STRING" << parent->getName().toStdString()<<endl;
 		vector<Node*> parentsClicked = clickedNode->getParentNodes();					// Parents of Node to be deleted
 		QList<QTreeWidgetItem*> childrenClicked = clickedNode->takeChildren();			// Children of Node to be deleted
 		vector<Node*> nodeChildrenClicked;
@@ -509,6 +541,7 @@ void MyGLWidget::deleteTreeNode(){
 			p->joinMultiple(nodeChildrenClicked);
 			p->removeChildNode(clickedNode);
 		}
+		this->animate();
 	}
 	emit updateGL();
 	emit buildTree(graph, true);	
@@ -523,7 +556,7 @@ void MyGLWidget::deleteTreeNode(){
 //////////////////////////////////////////
 void MyGLWidget::updateInterpolateMode(bool doInterpolate){
 	interpolateMode = doInterpolate;
-	cout<< "Interpolate mode is now; " << doInterpolate << endl;
+	//cout<< "Interpolate mode is now; " << doInterpolate << endl;
 }
 
 
@@ -540,7 +573,7 @@ void MyGLWidget::addFrame(){
 		int addPlace = selectedFrame+1;
 		bool isFirstAddedFrame = (selectedFrame == numFrames-1 && selectedFrame == 0);
 		bool isLastFrame = (selectedFrame == numFrames-1);										// SelectedFrame || Col selected is 0-based so subtract 1 from numFrames
-		cout << "NUM FRAMES BEFORE: " << numFrames << "& nextPlace: " << addPlace<< "& selectedFrame: " << selectedFrame << "NUMFRAMES AFTER: " << numFrames +1 <<endl;
+		//cout << "NUM FRAMES BEFORE: " << numFrames << "& nextPlace: " << addPlace<< "& selectedFrame: " << selectedFrame << "NUMFRAMES AFTER: " << numFrames +1 <<endl;
 		if (isFirstAddedFrame || isLastFrame || !interpolateMode){								 
 			graph->addFrame(addPlace, false, graph->getRootNode(), gMatrix3::identity());}		// Duplicate Frame
 		else{
@@ -562,7 +595,6 @@ void MyGLWidget::addFrame(){
 void MyGLWidget::updateSelectedFrame(int col){
 	updateMode(nodeMode);									// Reset Values in the Editor & maintain node mode
 	selectedFrame = col;
-	graph->setClickedFrame(selectedFrame);
 	emit buildTree(graph, true);
 	updateGL();
 }
@@ -581,6 +613,7 @@ void MyGLWidget::deleteFrame(){
 		}
 		if (numFrames >0) 
 			numFrames--;
+		this->animate();
 	}
 	emit buildTree(graph,true);
 	updateGL();
@@ -594,4 +627,206 @@ void MyGLWidget::updateFrameImage() {
 		QImage image = grabFrameBuffer(false);
 		emit sendUpdatedImage(image, selectedFrame);
 	}
+}
+
+
+
+////////////////////////////////////
+/**** Set MultiFramesValues ***/
+////////////////////////////////////
+void MyGLWidget::setMultiFramesValue(double value){
+	numMultiAddFrames = (int)value;
+	//cout << "ADD NUMBER: " << value << endl;
+}
+
+////////////////////////////////////
+/********* Add Mult iFrames *******/
+////////////////////////////////////
+void MyGLWidget::addMultiFrames(){
+	QImage image = grabFrameBuffer(false);
+	int addPlace = selectedFrame+1;
+	bool isFirstAddedFrame = (selectedFrame == numFrames-1 && selectedFrame == 0);
+	bool isLastFrame = (selectedFrame == numFrames-1);										// SelectedFrame || Col selected is 0-based so subtract 1 from numFrames
+	//cout << "NUM FRAMES BEFORE: " << numFrames << "& nextPlace: " << addPlace<< "& selectedFrame: " << selectedFrame << "NUMFRAMES AFTER: " << numFrames +1 <<endl;
+	if (isFirstAddedFrame || isLastFrame || !interpolateMode){								 
+		graph->batchAdd(addPlace, false, graph->getRootNode(), gMatrix3::identity(), numMultiAddFrames);}		// Duplicate Frame
+	else{
+		graph->batchAdd(addPlace, true, graph->getRootNode(), gMatrix3::identity(), numMultiAddFrames);		// Insertion Frame
+	}
+
+	for(int i = 1; i <= numMultiAddFrames; i++){
+		numFrames++;
+		QImage image = grabFrameBuffer(false);
+		emit sendImage(image, addPlace+i);	
+		emit buildTree(graph, true);
+		updateGL();
+	}
+}
+
+
+///////////////////////////////////////////////
+/************** setAnimateViewMode ***********/
+///////////////////////////////////////////////
+void MyGLWidget::setAnimateViewMode(int value){
+	animateViewMode = value;
+	if (value == 0){
+		selectedFrame = 0;			/// MAy not be needed
+		//animator->isAnimated = 0;
+	}
+	//cout << "Animate View Mode: " << value << endl;
+}
+
+////////////////////////////////////////////////
+/************** setNumAnimateFrames ***********/
+////////////////////////////////////////////////
+void MyGLWidget::setNumAnimateFrames(double value){
+	numAnimatedFrames = value;
+	//cout << "Num Animate Frames: " << value << endl;
+}
+
+
+
+
+////////////////////////////////////
+/************** Animate ***********/
+////////////////////////////////////
+void MyGLWidget::animate(){
+	if(numAnimatedFrames >= numFrames){
+		stopAnimation();
+		graph->eraseAnimation(graph->getRootNode());
+		isPaused = 1;
+		graph->eraseAnimation(graph->getRootNode());
+		graph->copyKeyFrames(graph->getRootNode());
+		graph->animateGraph(numAnimatedFrames, numFrames);
+		currentAnimatedFrame = 0;
+		updateGL();
+		if (numFrames <= 1)
+			emit setAnimationSliderMax(numAnimatedFrames-1);
+		else 
+			emit setAnimationSliderMax(numAnimatedFrames);
+	}
+}
+
+
+
+//////////////////////////// TIMER FUNCTIONS //////////////////////
+
+
+///////////////////////////////////////////
+/************** Stop Animation ***********/
+///////////////////////////////////////////
+void MyGLWidget::stopAnimation(){
+	timer->stop();
+	isPaused = 1;
+	currentAnimatedFrame = 0;
+	emit setAnimationSliderValue(currentAnimatedFrame);
+	emit sendPlayString(QString::fromStdString("Play"));
+}
+
+
+//////////////////////////////////////////////
+/************** Change is Paused ************/
+//////////////////////////////////////////////
+void MyGLWidget::changeIsPaused(){
+	//cout<< "isPaused Before: " << isPaused << endl; 
+	if (isPaused){
+		playAnimation();
+		isPaused = 0;
+		emit sendPlayString(QString::fromStdString("Pause"));
+	}
+	else {
+		pauseAnimation();
+		isPaused = 1;
+		emit sendPlayString(QString::fromStdString("Play"));
+	}
+}
+
+
+
+///////////////////////////////////////////
+/************** Play Animation ***********/
+///////////////////////////////////////////
+void MyGLWidget::playAnimation(){
+    timer->start(playbackSpeed);           //start with 17ms delay between signals, roughly 60 FPS
+    updateGL();
+}
+
+////////////////////////////////////////////
+/************** Pause Animation ***********/
+////////////////////////////////////////////
+void MyGLWidget::pauseAnimation(){
+	timer->stop();
+}
+
+
+
+//////////////////////////////////////////////
+/************** Change Play Mode ************/
+//////////////////////////////////////////////
+void MyGLWidget::changePlayMode(int _mode){
+	//cout<<"PlayMode: " << _mode<< endl;
+	playMode = _mode;
+}
+
+
+/////////////////////////////////////////////////////
+/************** set CurrentAnimateFrame ************/
+/////////////////////////////////////////////////////
+void MyGLWidget::setCurrentAnimateFrame(int value){
+		this->currentAnimatedFrame = value;
+		updateKeyFrameString(value);
+		updateGL();
+}
+
+
+void MyGLWidget::updateKeyFrameString(int value){
+		if(graph->getRootNode()->keyFrameAnimated[value]){
+			emit sendKeyFrameString(QString::fromStdString("Key Frame Selected"));
+		}
+		else
+			emit sendKeyFrameString(QString::fromStdString("Animated Frame Selected"));
+}
+
+/////////////////////////////////////////////////////
+/************** Make Key Frame ************/
+/////////////////////////////////////////////////////
+void MyGLWidget::makeKeyFrame(){
+	if(graph->isAnimated){
+		Node* root = graph->getRootNode();
+		graph->makeKeyFrame(currentAnimatedFrame, root);
+		QImage image = grabFrameBuffer(false);	
+		int numKeyFramesPassed = 0;
+		for (int i = 0; i < root->keyFrameAnimated.size() && i <= currentAnimatedFrame; i++){
+			if (root->keyFrameAnimated[i]) numKeyFramesPassed++;
+		}
+		int addPlace = numKeyFramesPassed+1;	
+		numFrames++;
+		emit sendImage(image, addPlace);	
+		emit buildTree(graph, true);
+		updateGL();
+		animate();
+	}
+}
+
+////////////////////////////////////////////////
+/************** Set PlayBack Speed ************/
+////////////////////////////////////////////////
+void MyGLWidget::setPlaybackSpeed(double speed){
+	timer->stop();
+	if(speed >=1){
+		playbackSpeed = (1600/speed);
+	}
+	else playbackSpeed = 0;
+	playAnimation();
+}
+
+//////////////////////////////////////
+/************** set Loop ************/
+//////////////////////////////////////
+void MyGLWidget::setLoop(){
+	if(isLooped){
+		isLooped = false;
+	}
+	else
+		isLooped = true;
 }

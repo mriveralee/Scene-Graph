@@ -6,5 +6,6 @@
 $(LocalDebuggerEnvironment)</LocalDebuggerEnvironment>
     <LocalDebuggerEnvironment Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PATH=$(QTDIR)\bin%3b$(PATH)</LocalDebuggerEnvironment>
     <DebuggerFlavor Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">WindowsLocalDebugger</DebuggerFlavor>
+    <ShowAllFiles>false</ShowAllFiles>
   </PropertyGroup>
 </Project>

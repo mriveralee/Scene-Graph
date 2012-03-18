@@ -251,9 +251,9 @@ bool Node::hasGeometry(){
 	return hasPolygon;
 }
 
-/////////////////////////////
-/****** Set Matrix *********/
-/////////////////////////////
+///////////////////////////////////
+/****** Set Model Matrix *********/
+///////////////////////////////////
 void Node::setModel(gMatrix3 _model){
 	model = _model;
 }
@@ -538,4 +538,221 @@ void Node::clone(int signal){
 ////////////////////////////////
 void Node::setFrame(int place){
 	framePlace = place;
+}
+
+
+
+////////////////////////////////
+/***** Batch Insert Frame *****/
+////////////////////////////////
+void Node::BatchInsertFrame(int place, int numFrames){
+	//cout<<"BEFORE: " << place-1<< "MID: " << place << "AFTER: "<< place+1<< endl;
+	
+	
+	loadFrame(place-1);	
+	if ( place > 0 && place < translateFrames.size()){
+		gMatrix3 dT =  translateFrames[place] - translateFrames[place-1] ;
+		gMatrix3 dS = scaleFrames[place] - scaleFrames[place-1];
+		float dR =  rotateFrames[place] - rotateFrames[place-1];
+		dT = dT/(numFrames+1);
+		dS = dS/(numFrames+1);
+		dR = dR/(numFrames+1);
+
+		for (int i = numFrames+1; i>= 1; i--){
+			int mult = i;														// first place is 2*i/numframes
+			gMatrix3 t = (mult*dT)+ translateFrames[place-1];	 // +;
+			gMatrix3 s = (mult*dS) + scaleFrames[place-1];
+			float r = (mult*dR) + rotateFrames[place-1];
+			
+			translation = t;
+			scale = s;
+			rotateValue = r;
+
+			vector<gMatrix3>::iterator iT = translateFrames.begin();
+			vector<gMatrix3>::iterator iS = scaleFrames.begin();
+			vector<float>::iterator iR = rotateFrames.begin();
+			vector<gMatrix3>::iterator iTrans = transformationFrames.begin();
+			
+			scaleFrames.insert(iS+place, scale);
+			translateFrames.insert(iT+place,translation);
+			rotateFrames.insert(iR+place, rotateValue);
+			transformationFrames.insert(iTrans+place+1, getTransformation());
+		}
+	loadFrame(place-1);
+	}
+}
+
+
+/////////////////////////////////////////////
+/************ Batch Create Frame  **********/
+/////////////////////////////////////////////
+void Node::BatchCreateFrame(int place, int numFrames){
+	for (int i = 1; i <=numFrames; i++){
+		createFrame(place);
+	}
+}
+
+/////////////////////////////////////////////
+/////////// ANIMATION FUNCTIONS /////////////
+/////////////////////////////////////////////
+
+/////////////////////////////////////////////
+/*********** Load Animated Frame  **********/
+/////////////////////////////////////////////
+void Node::loadAnimatedFrame(int place){
+	translation = translateAnimated[place];
+	scale =	scaleAnimated[place];
+	rotation =	gMatrix3::rotation2D(rotateAnimated[place]);
+	rotateValue = rotateAnimated[place];
+}
+///////////////////////////////////////////
+/*********** Set Animate Model  **********/
+///////////////////////////////////////////
+void Node::setAnimatedModel(gMatrix3 _model){
+	animatedModel = _model;
+}
+///////////////////////////////////////
+/**** Get Animated Transformation*****/
+///////////////////////////////////////
+gMatrix3 Node::getAnimatedTransformation(int place){
+	return translateAnimated[place]*(scaleAnimated[place]*gMatrix3::rotation2D(rotateAnimated[place]));
+}
+/////////////////////////////////////////
+/***** Batch Insert Animated Frame *****/
+/////////////////////////////////////////
+void Node::BatchInsertAnimated(int place, int numFrames){
+	//cout<<"BEFORE: " << place-1<< "MID: " << place << "AFTER: "<< place+1<< endl;
+	loadAnimatedFrame(place-1);	
+	if ( place > 0 && place < translateAnimated.size()){
+		gMatrix3 dT =  translateAnimated[place] - translateAnimated[place-1] ;
+		gMatrix3 dS = scaleAnimated[place] - scaleAnimated[place-1];
+		float dR =  rotateAnimated[place] - rotateAnimated[place-1];
+		dT = dT/(numFrames+1);
+		dS = dS/(numFrames+1);
+		dR = dR/(numFrames+1);
+		for (int i = numFrames+1; i>= 1; i--){
+			int mult = i;														// first place is 2*i/numframes
+			gMatrix3 t = (mult*dT)+ translateAnimated[place-1];	 // +;
+			gMatrix3 s = (mult*dS) + scaleAnimated[place-1];
+			float r = (mult*dR) + rotateAnimated[place-1];		
+			translation = t;
+			scale = s;
+			rotateValue = r;
+			isKeyFrame =0;
+			vector<gMatrix3>::iterator iT = translateAnimated.begin();
+			vector<gMatrix3>::iterator iS = scaleAnimated.begin();
+			vector<float>::iterator iR = rotateAnimated.begin();
+			vector<gMatrix3>::iterator iTrans = transformationAnimated.begin();
+			vector<bool>::iterator iKeyFrame = keyFrameAnimated.begin();
+			
+			scaleAnimated.insert(iS+place, scale);
+			translateAnimated.insert(iT+place,translation);
+			rotateAnimated.insert(iR+place, rotateValue);
+			transformationAnimated.insert(iTrans+place+1, getTransformation());
+			keyFrameAnimated.insert(iKeyFrame+place, isKeyFrame);
+		}
+	loadAnimatedFrame(place-1);
+	}
+}
+/////////////////////////////////////////
+/***** Batch Create Animated Frame *****/
+/////////////////////////////////////////
+void Node::BatchCreateAnimated(int place, int numFrames){
+	for (int i = 1; i < numFrames; i++){
+		createAnimatedFrame(place);
+	}
+}
+
+/////////////////////////////////////////
+/*******  Create Animated Frame  *******/
+/////////////////////////////////////////
+void Node::createAnimatedFrame(int place){
+	int previous = place-1;
+	//if (previous == 0) previous = 1;
+	//updateAnimatedFrame(previous);
+	vector<gMatrix3>::iterator iT = translateAnimated.begin();
+	vector<gMatrix3>::iterator iS = scaleAnimated.begin();
+	vector<float>::iterator iR = rotateAnimated.begin();
+	vector<gMatrix3>::iterator iTrans = transformationAnimated.begin();
+	vector<bool>::iterator iKeyFrame = keyFrameAnimated.begin();
+	isKeyFrame =0;
+	scaleAnimated.insert(iS+place, scaleAnimated[previous]);
+	translateAnimated.insert(iT+place,translateAnimated[previous]);
+	rotateAnimated.insert(iR+place, rotateAnimated[previous]);
+	transformationAnimated.insert(iTrans+place, getAnimatedTransformation(previous));
+	keyFrameAnimated.insert(iKeyFrame+place, isKeyFrame);
+	//loadAnimatedFrame(place);
+	//cout<< "CREATE FRAME AT PLACE: " << place << endl;
+}
+
+
+
+
+
+	void Node::createAnimatedFirst(int numTimes){
+		isKeyFrame =0;
+		for(int i = 0; i < numTimes; i++){
+			scaleAnimated.push_back(scaleAnimated[0]);
+			translateAnimated.push_back(translateAnimated[0]);
+			rotateAnimated.push_back(rotateAnimated[0]);
+			transformationAnimated.push_back(getAnimatedTransformation(0));
+			keyFrameAnimated.push_back(0);
+		}
+
+	}
+
+//////////////////////////////////////////////////////
+/*******  copy Key Frames to Animated Frames  *******/
+//////////////////////////////////////////////////////
+void Node::copyKeyFrames(){
+	for each (gMatrix3 matrix in translateFrames){
+		translateAnimated.push_back(matrix);
+	}
+	for each (gMatrix3 matrix in scaleFrames){
+		scaleAnimated.push_back(matrix);
+	}
+	for each (gMatrix3 matrix in transformationFrames){
+		transformationAnimated.push_back(matrix);
+	}
+	for each (float value in rotateFrames){
+		rotateAnimated.push_back(value);
+	}
+	for (int i = 0; i < rotateFrames.size(); i++){
+		keyFrameAnimated.push_back(true);
+	}
+}
+
+///////////////////////////////////
+/*******  Erase Animation  *******/
+///////////////////////////////////
+void Node::eraseAnimation(){
+		translateAnimated.clear();
+		rotateAnimated.clear();
+		scaleAnimated.clear();
+		transformationAnimated.clear();
+		keyFrameAnimated.clear();
+}
+
+
+///////////////////////////////////
+/*******  Make Key Frame  *******/
+///////////////////////////////////
+void Node::makeKeyFrame(int place){
+	int numKeyFramesPassed = 0;
+	for (int i = 0; i < keyFrameAnimated.size() && i <= place; i++){
+		if (keyFrameAnimated[i])
+			numKeyFramesPassed++;
+	}
+	//isKeyFrame =0;
+	vector<gMatrix3>::iterator iT = translateFrames.begin();
+	vector<gMatrix3>::iterator iS = scaleFrames.begin();
+	vector<float>::iterator iR = rotateFrames.begin();
+	vector<gMatrix3>::iterator iTrans = transformationFrames.begin();
+	
+	scaleFrames.insert(iS+numKeyFramesPassed, scaleAnimated[place]);
+	translateFrames.insert(iT+numKeyFramesPassed,translateAnimated[place]);
+	rotateFrames.insert(iR+numKeyFramesPassed, rotateAnimated[place]);
+	transformationFrames.insert(iTrans+numKeyFramesPassed, getAnimatedTransformation(place));
+
+
 }

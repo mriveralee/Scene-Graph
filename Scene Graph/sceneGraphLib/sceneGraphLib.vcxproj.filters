@@ -128,6 +128,24 @@
     <ClCompile Include="myframewidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="myanimationslider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_myanimationslider.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_myanimationslider.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="myButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_myButton.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_myButton.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="scenegraphlib.h">
@@ -158,6 +176,12 @@
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="myframewidget.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="myanimationslider.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="myButton.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>

@@ -14,9 +14,10 @@ class MyGLWidget;								// For dependencies in linking
 class Graph{
 private:
 	Node* root;									// Root node of the graph
-	int clickedFrame;							// The currently selected frame in the KeyFrame Animation Editor
+
 public:
 	MyGLWidget* widget;							// Widget to which this Scene graph can be drawn
+	bool isAnimated;
 	Graph();									// Constructor with no root node
 	Graph(Node*);								// Constructor with Root Node
 	Graph(MyGLWidget*);							// Constructor with pointer to a widget
@@ -29,5 +30,15 @@ public:
 	void traverseFrame(int,Node*, gMatrix3);	// Traverse every node in the graph at a particular framePlace (int) and draw the applied Transformations
 	void addFrame(int, bool, Node*, gMatrix3);	// Traverse all nodes and add a frame at a framePlace
 	void removeFrame(int, Node*, gMatrix3);		// Traverse all nodes and remove frame at a framePlace
-	void setClickedFrame(int);					// set the frame to be drawn
+	void batchAdd(int, bool, Node*, gMatrix3, int);							// Add multiple frames
+
+	
+	// Implement
+	void copyKeyFrames(Node*);
+	void animateGraph(int, int);
+	void batchAnimatedAdd(int,bool,Node*, gMatrix3, int);
+	void traverseAnimated(int, Node*, gMatrix3);
+	void playAnimated(int);
+	void eraseAnimation(Node*);
+	void makeKeyFrame(int, Node*);
 };

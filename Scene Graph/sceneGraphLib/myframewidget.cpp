@@ -57,7 +57,7 @@ void MyFrameWidget::receiveGraph(Graph* _graph){
 ////////////////////////////////////
 void MyFrameWidget::setClicked(int row, int col){
 	clickedCol = col;
-	cout<<"FrameWidget Selected Column" << col<<endl;
+	//cout<<"FrameWidget Selected Column" << col<<endl;
 	emit changeFrame(col);
 }
 

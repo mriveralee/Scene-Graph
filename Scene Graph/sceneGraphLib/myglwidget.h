@@ -17,8 +17,10 @@
 #include "gVector3.h"
 #include "gPolygon.h"
 #include "mytreewidget.h"
+#include "myanimationslider.h"
 
 class Graph;										// Needed for Dependencies
+class Animator;
 class MyTreeWidget;
 
 
@@ -42,8 +44,8 @@ private:
 	unsigned int fragmentShader;
 	unsigned int shaderProgram;
 	//Animation/transformation stuff
-	QTimer* timer;
-	//float rotation;
+	QTimer* timer;							// Timer for the anmation
+	
 	//helper function to read shader source and put it in a char array
 	//thanks to Swiftless
 	char* textFileRead(const char*);
@@ -74,7 +76,24 @@ public:
 	bool updateDisplay;						// Can we update the display nodes on changes of values; 0 if NodeMode => creator mode; 1 otherwise
 	bool firstRun;	
 	Graph* graph;							// Link to the Scene graph
+	double playbackSpeed;
 	
+	// Animator
+	int numMultiAddFrames;					// For Multi Frame Add
+	int animateViewMode;					// 0 for keyframe editor || 1 for animator	
+	int numAnimatedFrames;					// Number of Frames to be in the animation
+	bool isPaused;							// For play/pause button 0 for play; 1 for pause
+	bool isLooped;
+	bool playMode;							// 0 for selector, 1 for player
+	
+	
+	
+	int currentAnimatedFrame;
+
+
+
+
+	// Functions
 	MyGLWidget(QWidget*);					// Constructor
 	~MyGLWidget(void);						// Destructor
 	void initializeGL(void);				// Initialize the openGL vars
@@ -82,7 +101,7 @@ public:
 	void resizeGL(int, int);				// Resize the GL
 	void keyPressEvent(QKeyEvent*);			// Processes keyEvents
 //	void MyGLWidget::drawPolygon(gPolygon*);
-	void MyGLWidget::drawNode(Node*);		// Draws the scene graph by passing in the root node
+	void drawNode(Node*);		// Draws the scene graph by passing in the root node
 
 
 public slots:									
@@ -93,12 +112,16 @@ public slots:
 	void translateY(double);					// Update translateY value in the control box
 	void scaleX(double);						// Update scaleX value in the control box
 	void scaleY(double);						// Update scaleY degrees in the control box
+	
 	void resetGraph(void);						// Reset the graph/animation/tree widget viewer to the original character. (Reconstructs a character)
+	
 	void colorRed(int);							// Update red color value in the control box
 	void colorGreen(int);						// Update green color value in the control box
 	void colorBlue(int);						// Update blue color value in the control box
+	
 	void updateName(QString);					// Update Name in the control box
 	void updateMode(int);						// Update Node mode (editor vs creator)
+	
 	void createNode();							// Create a new Node
 	void saveGeometry(int);						// Save geometry for new Node
 	void saveNewName(QString);					// Update name for new Node
@@ -111,21 +134,50 @@ public slots:
 	void saveRed(int);							// Save red color value for new Node
 	void saveGreen(int);						// Save green color value value for new Node
 	void saveBlue(int);							// Save blue color value value for new Node
-	void deleteTreeNode();						// Delete a item from the scene graph & the treeWidget display
-	void addFrame();							// Add a frame to the key frame animation view
+	
+	void deleteTreeNode(void);					// Delete a item from the scene graph & the treeWidget display
+	
+	void addFrame(void);						// Add a frame to the key frame animation view
 	void updateSelectedFrame(int);				// update the image displayed to show frame at a framePlace (int)
-	void deleteFrame();							// Delete a frame from the keyframe animation edition view
-	void updateFrameImage();
+	void deleteFrame(void);						// Delete a frame from the keyframe animation edition view
+	void updateFrameImage(void);
 	void updateInterpolateMode(bool);
+	
+	void setMultiFramesValue(double);			// set the value for batch frame adding
+	void addMultiFrames(void);					// batch add/insert frames
+	
+	void animate(void);						
+	void setAnimateViewMode(int);				// Set the view mode, which picks a graph to display in MyGLWidget
+	void setNumAnimateFrames(double);
+
+
+	// TIMER SLOT FUNCTIONs
+	void stopAnimation(void);
+	void playAnimation(void);
+	void pauseAnimation(void);
+	void changeIsPaused(void);
+	void changePlayMode(int);
+	void setCurrentAnimateFrame(int);
+	void makeKeyFrame(void);
+	void setPlaybackSpeed(double);
+	void setLoop();
+	void updateKeyFrameString(int);
+
+
 
 signals:
 	void buildTree(Graph*, bool);				// Displays scene graph in the tree view; True only for reset, or add/remove nodes
 	void resetValues(double);					// Clears all values in the control box on reset
 	void resetValues(int);
-	void cNode();		
+	void cNode(void);		
 	void sendUpdatedImage(QImage, int);			// Updates the display image for an frame
 	void sendImage(QImage, int);				
 	void setSelectedColumn(int);				// Sets the selectedFrame
-	void clearFrames();							// Erases all frames
-	void clearSelection();
+	void clearFrames(void);						// Erases all frames
+	void clearSelection(void);
+	void setAnimationSliderMax(int);
+	void setAnimationSliderValue(int);
+	void sendPlayString(QString);
+	void sendKeyFrameString(QString);
+
 };

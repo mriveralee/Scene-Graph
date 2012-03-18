@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'myslider.h'
 **
-** Created: Tue Mar 6 17:58:10 2012
+** Created: Sun Mar 18 00:27:26 2012
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.0)
 **
 ** WARNING! All changes made in this file will be lost!

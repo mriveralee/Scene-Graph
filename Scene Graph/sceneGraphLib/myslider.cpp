@@ -41,7 +41,7 @@ MySlider::~MySlider(){
 			emit passDataSlider(_red, _green, _blue, _rotation, hasGeometry, ++count);
 		}
 		else if (count == 3){
-			float r = (int)_rotation%360;
+			float r = (int)_rotation%361;
 			setValue(r);
 			emit passDataSlider(_red, _green, _blue, _rotation, hasGeometry, ++count);
 		}
